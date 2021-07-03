@@ -1,0 +1,85 @@
+nameOverride: prometheus
+fullnameOverride: prometheus
+
+defaultRules:
+  create: false
+alertmanager:
+  enabled: false
+grafana:
+  enabled: false
+kubelet:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+coreDns:
+  enabled: false
+kubeApiServer:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+prometheusOperator:
+  kubeletService:
+    enabled: false
+  resources:
+    requests:
+      cpu: 500m
+      memory: 100Mi
+    limits:
+      cpu: 700m
+      memory: 200Mi
+
+prometheus:
+  serviceAccount:
+    create: false
+    name: prometheus
+  prometheusSpec:
+    scrapeInterval: "1m"
+    scrapeTimeout: "60s"
+    evaluationInterval: "1m"
+    retention: 7d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 2500m
+        memory: 20000Mi
+    storageSpec:
+      volumeClaimTemplate:
+        metadata:
+          name: prometheus
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 30Gi
+    thanos:
+      baseImage: quay.io/thanos/thanos
+      version: v0.18.0
+      objectStorageConfig:
+        name: thanos-objstore-config
+        key: thanos.yaml
+  service:
+    type: NodePort
+  thanosIngress:
+    enabled: true
+    paths:
+    - /*
+    annotations:
+      external-dns/zone: private
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/backend-protocol-version: GRPC
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
+
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: true
