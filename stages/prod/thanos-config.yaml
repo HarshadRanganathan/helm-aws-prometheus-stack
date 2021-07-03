@@ -1,0 +1,7 @@
+type: s3
+config:
+  bucket: prod-metrics-storage
+  endpoint: s3.us-east-1.amazonaws.com
+  sse_config:
+    type: "SSE-S3"
+    
