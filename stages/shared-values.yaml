@@ -78,6 +78,22 @@ prometheus:
       alb.ingress.kubernetes.io/backend-protocol-version: GRPC
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
+      
+alertmanager:
+  config:
+    route:
+      repeat_interval: 3h
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        metadata:
+          name: alertmanager
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
 
 kubeStateMetrics:
   enabled: true
