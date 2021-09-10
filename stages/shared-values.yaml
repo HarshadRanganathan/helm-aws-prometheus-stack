@@ -1,10 +1,10 @@
 nameOverride: prometheus
 fullnameOverride: prometheus
 
-defaultRules:
-  create: false
-alertmanager:
-  enabled: false
+# defaultRules:
+#   create: false
+# alertmanager:
+#   enabled: false
 grafana:
   enabled: false
 kubelet:
