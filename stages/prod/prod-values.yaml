@@ -11,3 +11,9 @@ prometheus:
       cluster: prod-eks-cluster
       stage: prod
       region: us-east-1
+
+defaultRules:
+  additionalRuleLabels:
+    cluster: prod-eks-cluster
+    stage: prod
+    region: us-east-1 
