@@ -4,7 +4,7 @@ prometheus:
     - prod.prometheus.example.net
     annotations:
       external-dns.alpha.kubernetes.io/hostname: prod.prometheus.example.net
-      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1::certificate/
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1::certificate/<arn>
       alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=,access_logs.s3.prefix=awselasticloadbalancing/prod
   prometheusSpec:
     externalLabels:
