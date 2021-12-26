@@ -57,6 +57,22 @@ This trust relationship allows pods with serviceaccount `prometheus` in `platfor
 }
 ```
 
+### Service Account
+
+Create a new service account in the `platform` namespace and associate it with the IAM role which we had created earlier.
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus
+  namespace: platform
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<AWS_ACCOUNT_ID>:role/prometheus-rol
+EOF
+```
+
 ## Install/Upgrade Chart
 
 Run below commands to set up prometheus stack:
