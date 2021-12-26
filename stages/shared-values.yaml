@@ -112,7 +112,7 @@ alertmanager:
             alertname: Watchdog
           receiver: 'null'
       receivers: 
-      - name: "null" # Null reciever is to mute alerts with this name would act differently than silences
+      - name: "null" # Null receiver is to mute alerts with this name would act differently than silences
       - name: 'default'
         webhook_configs:
         - send_resolved: true
