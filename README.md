@@ -10,7 +10,7 @@ kubectl --namespace platform  port-forward svc/prometheus-alertmanager 9093
 
 then visit localhost:9093
 
-## Reload AlertManager config
+## Reload AlertManager Config
 
 If the prometheus operator does not reload the config automatically you can manually initiate the config reload by hitting below endpoint after port forwarding:
 
