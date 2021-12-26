@@ -10,6 +10,19 @@ Helm chart for setting up:
 
 Chart Reference - https://github.com/prometheus-operator/kube-prometheus
 
+Table of Contents
+=================
+
+* [helm-aws-prometheus-stack](#helm-aws-prometheus-stack)
+   * [Pre-requisites](#pre-requisites)
+      * [Namespace](#namespace)
+      * [IAM](#iam)
+      * [Service Account](#service-account)
+      * [Config Updates](#config-updates)
+   * [Install/Upgrade Chart](#installupgrade-chart)
+   * [Accessing AlertManager UI](#accessing-alertmanager-ui)
+   * [Reload AlertManager Config](#reload-alertmanager-config)
+
 ## Pre-requisites
 
 ### Namespace
