@@ -3,6 +3,7 @@
 Helm chart for setting up:
 - The Prometheus Operator
 - Highly available Prometheus
+- Thanos Sidecar
 - Highly available Alertmanager
 - Prometheus node-exporter
 - kube-state-metrics
