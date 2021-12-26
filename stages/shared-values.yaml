@@ -93,7 +93,7 @@ alertmanager:
           resources:
             requests:
               storage: 20Gi
-  tplConfig: true
+  tplConfig: true #allows use of templated values in config section
   config:
     route:
       group_by: ['alertname']
