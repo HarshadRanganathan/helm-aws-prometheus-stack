@@ -32,7 +32,7 @@ We will be using IRSA (IAM Roles for Service Accounts) to give the required perm
 
 3. Update the trust relationship of the IAM role `prometheus-rol` as below replacing the `account_id`, `eks_cluster_id` and `region` with the appropriate values.
 
-This trust relationship allows pods with serviceaccount `aws-load-balancer-controller` in `platform` namespace to assume the role.
+This trust relationship allows pods with serviceaccount `prometheus` in `platform` namespace to assume the role.
 
 ```json
 {
