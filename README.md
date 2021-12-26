@@ -28,6 +28,8 @@ We will be using IRSA (IAM Roles for Service Accounts) to give the required perm
 
 1. Create a new IAM policy `prometheus-pol` with the policy document at `iam/policy.json`
 
+Replace `${bucket_name}` placeholder with the S3 bucket where you want the prometheus metrics to be stored
+
 2. Create a new IAM role `prometheus-rol` and attach the IAM policy `prometheus-pol`
 
 3. Update the trust relationship of the IAM role `prometheus-rol` as below replacing the `account_id`, `eks_cluster_id` and `region` with the appropriate values.
