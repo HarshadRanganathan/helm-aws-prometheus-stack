@@ -1,5 +1,14 @@
 # helm-aws-prometheus-stack
 
+Helm chart for setting up:
+- The Prometheus Operator
+- Highly available Prometheus
+- Highly available Alertmanager
+- Prometheus node-exporter
+- kube-state-metrics
+
+Chart Reference - https://github.com/prometheus-operator/kube-prometheus
+
 ## Install/Upgrade Chart
 
 Run below commands to set up prometheus stack:
