@@ -73,6 +73,17 @@ metadata:
 EOF
 ```
 
+### Config Updates
+
+1. Update `stages/prod/prod-values.yaml` file with appropriate values.
+
+| | |
+|--|--|
+|hosts |Hostname to which the rules apply  |
+|external-dns.alpha.kubernetes.io/hostname |Hostname to be used for DNS records |
+|alb.ingress.kubernetes.io/certificate-arn |ACM certificate for TLS connection |
+|externalLabels |External labels to be exported along with the metrics - Update with the EKS cluster name |
+
 ## Install/Upgrade Chart
 
 Run below commands to set up prometheus stack:
