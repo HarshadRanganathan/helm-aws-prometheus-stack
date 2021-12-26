@@ -80,9 +80,8 @@ prometheus:
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
       
 alertmanager:
-  config:
-    route:
-      repeat_interval: 3h
+  serviceAccount:
+    create: false
   alertmanagerSpec:
     storage:
       volumeClaimTemplate:
@@ -94,6 +93,30 @@ alertmanager:
           resources:
             requests:
               storage: 20Gi
+  tplConfig: true
+  config:
+    route:
+      group_by: ['alertname']
+      repeat_interval: 3h
+      receiver: 'default'
+      group_wait: 1m
+      group_interval: 10m
+      routes:
+        - match:
+            alertname: KafkaConsumersGroup
+          receiver: 'null'
+        - match:
+            alertname: ConsumerLagAlert
+          receiver: 'null'
+        - match:
+            alertname: Watchdog
+          receiver: 'null'
+      receivers: 
+      - name: "null" # Null reciever is to mute alerts with this name would act differently than silences
+      - name: 'default'
+        webhook_configs:
+        - send_resolved: true
+          url: http://alertmanager-sns-forwarder.platform:9087/alert/NOTIFICATION
 
 kubeStateMetrics:
   enabled: true
