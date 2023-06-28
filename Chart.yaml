@@ -19,7 +19,7 @@ sources:
   - https://github.com/prometheus-community/helm-charts
   - https://github.com/prometheus-operator/kube-prometheus
 version: 13.5.0
-appVersion: 0.45.0
+appVersion: 0.55.0
 kubeVersion: ">=1.16.0-0"
 home: https://github.com/prometheus-operator/kube-prometheus
 keywords:
@@ -36,7 +36,7 @@ annotations:
 
 dependencies:
 - name: kube-state-metrics
-  version: "2.9.*"
+  version: "3.1.0"
   repository: https://kubernetes.github.io/kube-state-metrics
   condition: kubeStateMetrics.enabled
 - name: prometheus-node-exporter
