@@ -17,3 +17,37 @@ defaultRules:
     cluster: prod-eks-cluster
     stage: prod
     region: us-east-1 
+
+# alertmanager:
+#   config:
+#     route:
+#       group_by: ['alertname']
+#       repeat_interval: 3h
+#       receiver: 'default'
+#       group_wait: 1m
+#       group_interval: 10m
+#       routes:
+#         - match:
+#             alertname: KafkaConsumersGroup
+#           receiver: 'null'
+#         - match:
+#             alertname: Watchdog
+#           receiver: 'null'
+#         - match:
+#             alertname: ApiAlert
+#           receiver: interlink
+#     receivers: # Null reciever is to mute alerts with this name would act differently than silences
+#     - name: "null" 
+#     - name: 'default'
+#       webhook_configs:
+#       - send_resolved: true
+#         url: http://alertmanager-sns-forwarder.platform:9087/alert/NOTIFICATION
+#     - name: 'interlink'
+#       webhook_configs:
+#       - send_resolved: true
+#         http_config:
+#           oauth2:
+#             client_id: <client_id>
+#             client_secret: <client_secret>
+#             token_url: https://gateway.example.com/auth/oauth2/cached/token
+#         url: https://gateway.example.com/interlink-connector-prometheus/v1
