@@ -10,11 +10,7 @@ metadata:
 items:
 {{ range $i, $e := until $count }}
   - kind: Ingress
-    {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1" }}
-    apiVersion: networking.k8s.io/v1beta1
-    {{ else }}
-    apiVersion: extensions/v1beta1
-    {{ end -}}
+    apiVersion: networking.k8s.io/v1
     metadata:
       name: {{ include "kube-prometheus-stack.fullname" $ }}-prometheus-{{ $i }}
       namespace: {{ template "kube-prometheus-stack.namespace" $ }}
@@ -29,10 +25,8 @@ items:
 {{ toYaml $ingressValues.annotations | indent 8 }}
       {{- end }}
     spec:
-      {{- if or ($.Capabilities.APIVersions.Has "networking.k8s.io/v1") ($.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1") }}
       {{- if $ingressValues.ingressClassName }}
       ingressClassName: {{ $ingressValues.ingressClassName }}
-      {{- end }}
       {{- end }}
       rules:
         - host: {{ $ingressValues.hostPrefix }}-{{ $i }}.{{ $ingressValues.hostDomain }}
@@ -40,9 +34,12 @@ items:
             paths:
       {{- range $p := $ingressValues.paths }}
               - path: {{ tpl $p $ }}
+                pathType: Prefix
                 backend:
-                  serviceName: {{ include "kube-prometheus-stack.fullname" $ }}-prometheus-{{ $i }}
-                  servicePort: {{ $servicePort }}
+                  service:
+                    name: {{ include "kube-prometheus-stack.fullname" $ }}-prometheus-{{ $i }}
+                    port:
+                      number: {{ $servicePort }}
       {{- end -}}
       {{- if or $ingressValues.tlsSecretName $ingressValues.tlsSecretPerReplica.enabled }}
       tls:
