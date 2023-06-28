@@ -28,10 +28,10 @@ prometheusOperator:
   resources:
     requests:
       cpu: 500m
-      memory: 100Mi
+      memory: 170Mi
     limits:
       cpu: 700m
-      memory: 200Mi
+      memory: 250Mi
 
 prometheus:
   serviceAccount:
@@ -78,10 +78,9 @@ prometheus:
       alb.ingress.kubernetes.io/backend-protocol-version: GRPC
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
       alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
-      
+
+
 alertmanager:
-  serviceAccount:
-    create: false
   alertmanagerSpec:
     storage:
       volumeClaimTemplate:
@@ -93,6 +92,9 @@ alertmanager:
           resources:
             requests:
               storage: 20Gi
+  serviceAccount:
+    create: false
+    name: ""
   tplConfig: true #allows use of templated values in config section
   config:
     route:
@@ -106,17 +108,15 @@ alertmanager:
             alertname: KafkaConsumersGroup
           receiver: 'null'
         - match:
-            alertname: ConsumerLagAlert
-          receiver: 'null'
-        - match:
             alertname: Watchdog
           receiver: 'null'
-      receivers: 
-      - name: "null" # Null receiver is to mute alerts with this name would act differently than silences
-      - name: 'default'
-        webhook_configs:
-        - send_resolved: true
-          url: http://alertmanager-sns-forwarder.platform:9087/alert/NOTIFICATION
+    receivers: # Null reciever is to mute alerts with this name would act differently than silences
+    - name: "null" 
+    - name: 'default'
+      webhook_configs:
+      - send_resolved: true
+        url: http://alertmanager-sns-forwarder.platform:9087/alert/NOTIFICATION
+
 
 kubeStateMetrics:
   enabled: true
